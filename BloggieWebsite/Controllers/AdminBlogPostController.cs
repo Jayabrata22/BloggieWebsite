@@ -2,6 +2,7 @@
 using BloggieWebsite.Models.Domain;
 using BloggieWebsite.Models.View_Model;
 using BloggieWebsite.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -17,6 +18,7 @@ namespace BloggieWebsite.Controllers
             this.tagRepository = tagRepository;
             this.blogPostRepository = blogPostRepository;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Add()
         {

@@ -2,6 +2,7 @@
 using BloggieWebsite.Models.Domain;
 using BloggieWebsite.Models.View_Model;
 using BloggieWebsite.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,21 +16,16 @@ namespace BloggieWebsite.Controllers
         {
             this.tagRepository = tagRepository;
         }
-
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ActionName("Add")]
-        //public IActionResult SubmitTag()
-        //{
-        //    var name = Request.Form["name"];
-        //    var displayName = Request.Form["display_Name"];
-        //    return View("Add");
-        //}
         public async Task<IActionResult> Add(AddTagRequest addTagRequest)
         {
 
@@ -43,6 +39,7 @@ namespace BloggieWebsite.Controllers
             return RedirectToAction("List");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> List()
         {
@@ -51,7 +48,7 @@ namespace BloggieWebsite.Controllers
             return View(tagas);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -74,6 +71,7 @@ namespace BloggieWebsite.Controllers
             return View("Sorry! No Tags Found.");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditTagRequest editTagRequest)
         {
@@ -97,6 +95,7 @@ namespace BloggieWebsite.Controllers
             return RedirectToAction("Edit", new {id = editTagRequest.Id});
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Delete(EditTagRequest editTagRequest)
         {

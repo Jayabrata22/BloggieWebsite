@@ -1,6 +1,8 @@
-﻿namespace BloggieWebsite.Models.Domain
+﻿using BloggieWebsite.Models.Domain;
+
+namespace BloggieWebsite.Models.View_Model
 {
-    public class BlogPost
+    public class BlogDetailsViewModel
     {
         public Guid Id { get; set; }
 
@@ -12,12 +14,11 @@
         public string FeaturedImageUrl { get; set; }
         public bool Visible { get; set; }
         public string Author { get; set; }
-        public DateTime PublishedDate { get; set; } 
+        public DateTime PublishedDate { get; set; }
         public string ShortDescription { get; set; }
 
         public ICollection<Tag> Tags { get; set; }
-        public ICollection<BlogPostLikes> Likes { get; set; }
 
-
+        public int TotalLikes { get; set; }
     }
 }

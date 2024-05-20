@@ -6,5 +6,7 @@ namespace BloggieWebsite.Models.View_Model
     {
         public IEnumerable<BlogPost> BlogPosts { get; set; }
         public IEnumerable<Tag> Tags { get; set; }
+
+        public IEnumerable<BlogPostLikes> BlogPostLikes { get; set; }
     }
 }

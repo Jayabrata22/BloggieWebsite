@@ -18,6 +18,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkSto
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 builder.Services.AddScoped<IimageRepository, CloudImageRepository>();
+builder.Services.AddScoped<IBlogPostLikesRepository, BlogPostLikesRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
