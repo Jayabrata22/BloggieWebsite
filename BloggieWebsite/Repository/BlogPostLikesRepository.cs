@@ -13,16 +13,24 @@ namespace BloggieWebsite.Repository
         {
             this.bloggieDbContext = bloggieDbContext;
         }
+
+
+
         public async Task<int> GetTotalLikesAsync(Guid blogPostID)
         {
             return await bloggieDbContext.BlogPostLike.CountAsync(x => x.BlogPostId == blogPostID);
         }
 
-         async Task<BlogPostLikes> IBlogPostLikesRepository.addLikesForBLogs(BlogPostLikes blogPostLikes)
+        async Task<BlogPostLikes> IBlogPostLikesRepository.addLikesForBLogs(BlogPostLikes blogPostLikes)
         {
             await bloggieDbContext.BlogPostLike.AddAsync(blogPostLikes);
             await bloggieDbContext.SaveChangesAsync();
             return blogPostLikes;
+        }
+
+        async Task<IEnumerable<BlogPostLikes>> IBlogPostLikesRepository.GetLikesForBlog(Guid blogPostID)
+        {
+            return await bloggieDbContext.BlogPostLike.Where(x => x.BlogPostId == blogPostID).ToListAsync();
         }
     }
 }

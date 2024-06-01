@@ -18,6 +18,8 @@
         public ICollection<Tag> Tags { get; set; }
         public ICollection<BlogPostLikes> Likes { get; set; }
 
+        public ICollection<BlogPostComment> Comments { get; set; }
+
 
     }
 }

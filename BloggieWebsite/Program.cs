@@ -8,17 +8,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//injection DB
 builder.Services.AddDbContext<BloggieDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Bloggie.web.connectionString")));
 
 builder.Services.AddDbContext<AuthenticationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("AuthDb-ConnectionString")));
-
+//Injecting Repository
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AuthenticationDbContext>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
 builder.Services.AddScoped<IimageRepository, CloudImageRepository>();
 builder.Services.AddScoped<IBlogPostLikesRepository, BlogPostLikesRepository>();
+builder.Services.AddScoped<IBlogPostCommentRepository, BlogPostCommentRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

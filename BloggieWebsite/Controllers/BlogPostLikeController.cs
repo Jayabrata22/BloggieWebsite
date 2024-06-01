@@ -20,7 +20,7 @@ namespace BloggieWebsite.Controllers
         [Route("Add")]
         public async Task<IActionResult> AddLike([FromBody] AddLikeRequest addLikeRequest)
         {
-            if(addLikeRequest != null)
+            if (addLikeRequest != null)
             {
                 var model = new BlogPostLikes
                 {
@@ -29,9 +29,18 @@ namespace BloggieWebsite.Controllers
                 };
                 await blogPostLikesRepository.addLikesForBLogs(model);
 
-                
+
             }
             return Ok(0);
+        }
+
+        [HttpGet]
+        [Route("{BlogPostId:Guid}/totalLikes")]
+        public async Task<IActionResult> GetLikes([FromRoute] Guid BlogPostId)
+        {
+            var totalLikes = await blogPostLikesRepository.GetTotalLikesAsync(BlogPostId);
+
+            return Ok(totalLikes);
         }
     }
 }

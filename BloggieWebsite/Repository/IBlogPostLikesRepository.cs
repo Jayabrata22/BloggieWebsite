@@ -6,6 +6,7 @@ namespace BloggieWebsite.Repository
     {
         Task<int> GetTotalLikesAsync(Guid blogPostID);
 
+        Task<IEnumerable<BlogPostLikes>> GetLikesForBlog(Guid blogPostID);
         Task<BlogPostLikes>addLikesForBLogs(BlogPostLikes blogPostLikes);
     }
 }
