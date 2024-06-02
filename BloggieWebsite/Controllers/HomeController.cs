@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using BloggieWebsite.Repository;
 using BloggieWebsite.Models.View_Model;
+using BloggieWebsite.Models.Domain;
 
 namespace BloggieWebsite.Controllers
 {
@@ -31,9 +32,37 @@ namespace BloggieWebsite.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult About()
+        {
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult FAQ()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return View(new List<BlogPost>());
+            }
+            var tags = await tagRepository.SearchTagsAsync(query);
+            var BlogPosts = await blogPostRepository.GetBlogPostsByTagsAsync(tags);
+
+            return View(BlogPosts);
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

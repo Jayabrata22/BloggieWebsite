@@ -6,6 +6,8 @@ namespace BloggieWebsite.Repository
     {
          Task<IEnumerable<Tag>> GetAllTagsAsync();
 
+        Task<IEnumerable<Tag>> SearchTagsAsync(string keyword);
+
         Task<Tag> GetTagAsync(Guid id);
 
         Task<Tag> AddTagAsync(Tag tag); 

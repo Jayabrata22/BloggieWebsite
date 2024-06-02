@@ -15,5 +15,6 @@ namespace BloggieWebsite.Repository
         Task<BlogPost?> DeleteAsync(Guid id);
 
         Task<BlogPost> GetUrlHandelAsync(string urlHandel);
+        Task<IEnumerable<BlogPost>> GetBlogPostsByTagsAsync(IEnumerable<Tag> tags);
     }
 }

@@ -1,0 +1,41 @@
+﻿@model List<BloggieWebsite.Models.Domain.BlogPost>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+
+
+<div class="container">
+    <h2>Search Results</h2>
+
+    @if (!Model.Any())
+    {
+        <p>No blog posts found for your search query.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var post in Model)
+            {
+                <li>
+                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@post.Id">
+                        @post.Heading
+                    </a>
+                    <p>@post.ShortDescription </p>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a class="btn btn-dark mb-3" asp-action="Index" asp-route-urlHandel="@post.Urlhandle" asp-controller="Blogs" asp-area="">
+                            Read More
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-dark mb-3" asp-action="Index" asp-route-urlHandel="@post.Urlhandle" asp-controller="Blogs" asp-area="">
+                            Read More
+                        </a>
+                    }
+                </li>
+            }
+        </ul>
+    }
+</div>
+}

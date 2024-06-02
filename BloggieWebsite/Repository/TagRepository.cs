@@ -45,6 +45,11 @@ namespace BloggieWebsite.Repository
             return await bloggieDbContext.Tags.FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<IEnumerable<Tag>> SearchTagsAsync(string keyword)
+        {
+            return await bloggieDbContext.Tags.Where(x=> x.Name.Contains(keyword)).ToListAsync();
+        }
+
         public async Task<Tag> UpdateTagAsync(Tag tag)
         {
             var existingTag = await bloggieDbContext.Tags.FindAsync(tag.Id);
