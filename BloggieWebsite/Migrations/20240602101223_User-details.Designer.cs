@@ -4,6 +4,7 @@ using BloggieWebsite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BloggieWebsite.Migrations
 {
     [DbContext(typeof(BloggieDbContext))]
-    partial class BloggieDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240602101223_User-details")]
+    partial class Userdetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,10 +73,15 @@ namespace BloggieWebsite.Migrations
                     b.Property<string>("Urlhandle")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Visible")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("BlogPosts");
                 });
@@ -96,9 +104,14 @@ namespace BloggieWebsite.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BlogPostID");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("PostComments");
                 });
@@ -115,9 +128,14 @@ namespace BloggieWebsite.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BlogPostId");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("BlogPostLike");
                 });
@@ -134,7 +152,12 @@ namespace BloggieWebsite.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("Tags");
                 });
@@ -148,7 +171,7 @@ namespace BloggieWebsite.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("BackendAPIProgress")
+                    b.Property<int>("BackendAPIProgress")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -175,10 +198,10 @@ namespace BloggieWebsite.Migrations
                     b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MobileTemplateProgress")
+                    b.Property<int>("MobileTemplateProgress")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OnePageProgress")
+                    b.Property<int>("OnePageProgress")
                         .HasColumnType("int");
 
                     b.Property<string>("Phone")
@@ -193,13 +216,13 @@ namespace BloggieWebsite.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("WebDesignProgress")
+                    b.Property<int>("WebDesignProgress")
                         .HasColumnType("int");
 
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("WebsiteMarkupProgress")
+                    b.Property<int>("WebsiteMarkupProgress")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -222,6 +245,13 @@ namespace BloggieWebsite.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BloggieWebsite.Models.Domain.BlogPost", b =>
+                {
+                    b.HasOne("BloggieWebsite.Models.Domain.Users", null)
+                        .WithMany("BlogPosts")
+                        .HasForeignKey("UsersId");
+                });
+
             modelBuilder.Entity("BloggieWebsite.Models.Domain.BlogPostComment", b =>
                 {
                     b.HasOne("BloggieWebsite.Models.Domain.BlogPost", null)
@@ -229,6 +259,10 @@ namespace BloggieWebsite.Migrations
                         .HasForeignKey("BlogPostID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BloggieWebsite.Models.Domain.Users", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("UsersId");
                 });
 
             modelBuilder.Entity("BloggieWebsite.Models.Domain.BlogPostLikes", b =>
@@ -238,6 +272,17 @@ namespace BloggieWebsite.Migrations
                         .HasForeignKey("BlogPostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BloggieWebsite.Models.Domain.Users", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("UsersId");
+                });
+
+            modelBuilder.Entity("BloggieWebsite.Models.Domain.Tag", b =>
+                {
+                    b.HasOne("BloggieWebsite.Models.Domain.Users", null)
+                        .WithMany("Tags")
+                        .HasForeignKey("UsersId");
                 });
 
             modelBuilder.Entity("BloggieWebsite.Models.Domain.BlogPost", b =>
@@ -245,6 +290,17 @@ namespace BloggieWebsite.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Likes");
+                });
+
+            modelBuilder.Entity("BloggieWebsite.Models.Domain.Users", b =>
+                {
+                    b.Navigation("BlogPosts");
+
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
+
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }
