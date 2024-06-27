@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BloggieWebsite.Models.View_Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace BloggieWebsite.Models.Domain
 {
@@ -27,6 +28,8 @@ namespace BloggieWebsite.Models.Domain
 		public int? OnePageProgress { get; set; }       // Nullable int
 		public int? MobileTemplateProgress { get; set; }// Nullable int
 		public int? BackendAPIProgress { get; set; }    // Nullable int
-	}
+
+        public List<User> User { get; set; }
+    }
 
 }

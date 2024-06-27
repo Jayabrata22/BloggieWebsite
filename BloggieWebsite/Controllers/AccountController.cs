@@ -41,25 +41,29 @@ namespace BloggieWebsite.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModelRequest registerViewModelRequest)
         {
-            var User = new IdentityUser
+            if (ModelState.IsValid)
             {
-                UserName = registerViewModelRequest.UserName,
-                Email = registerViewModelRequest.Email,
-
-            };
-            var IdentityUser = await userManager.CreateAsync(User, registerViewModelRequest.Password);
-
-            if (IdentityUser.Succeeded)
-            {
-                //Assign this user the Normal ROle
-                var IdentityRoleResult = await userManager.AddToRoleAsync(User, "User");
-
-                if (IdentityRoleResult.Succeeded)
+                var User = new IdentityUser
                 {
-                    //SHow Success Notification or return to Login Page
-                    return RedirectToAction("Login");
+                    UserName = registerViewModelRequest.UserName,
+                    Email = registerViewModelRequest.Email,
+
+                };
+                var IdentityUser = await userManager.CreateAsync(User, registerViewModelRequest.Password);
+
+                if (IdentityUser.Succeeded)
+                {
+                    //Assign this user the Normal ROle
+                    var IdentityRoleResult = await userManager.AddToRoleAsync(User, "User");
+
+                    if (IdentityRoleResult.Succeeded)
+                    {
+                        //SHow Success Notification or return to Login Page
+                        return RedirectToAction("Login");
+                    }
                 }
             }
+
 
             return View();
         }
@@ -116,6 +120,6 @@ namespace BloggieWebsite.Controllers
     }
 
 
-    
+
 }
 

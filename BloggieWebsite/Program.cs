@@ -22,6 +22,8 @@ builder.Services.AddScoped<IimageRepository, CloudImageRepository>();
 builder.Services.AddScoped<IBlogPostLikesRepository, BlogPostLikesRepository>();
 builder.Services.AddScoped<IBlogPostCommentRepository, BlogPostCommentRepository>();
 builder.Services.AddScoped<IUserServiceRespository, UserServiceRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
