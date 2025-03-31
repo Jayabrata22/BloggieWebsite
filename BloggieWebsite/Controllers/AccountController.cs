@@ -117,6 +117,12 @@ namespace BloggieWebsite.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
     }
 
 
