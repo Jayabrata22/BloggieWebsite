@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.3.3" />
-    <PackageReference Include="CloudinaryDotNet" Version="1.26.2" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.27.5" />
     <PackageReference Include="font-awesome" Version="4.7.0" />
     <PackageReference Include="FontAwesome" Version="4.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
@@ -25,10 +25,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
-    <PackageReference Include="Syncfusion.DocToPdfConverter.AspNet.Mvc5" Version="28.1.35" />
-    <PackageReference Include="Syncfusion.HtmlToPdfConverter.AspNet.Mvc5" Version="28.1.35" />
+    <PackageReference Include="Syncfusion.DocToPdfConverter.AspNet.Mvc5" Version="29.1.33" />
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.AspNet.Mvc5" Version="29.1.33" />
   </ItemGroup>
 
 </Project>
